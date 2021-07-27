@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs"
+    "target": "ESNext",
+    "module": "commonjs",
+    "strictNullChecks": true,
+    // ESNext最新版的js
+    "lib": [
+      "dom",
+      "ESNext"
+    ]
   }
 }

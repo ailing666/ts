@@ -1,2 +1,2 @@
-var a = 10;
-var c = 50;
+let a = 10;
+const c = 50;
