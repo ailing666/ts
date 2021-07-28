@@ -9,11 +9,11 @@ let getName: GetName = function (firstName: string, lastName: string): string {
 }
 
 // 可选参数
-function print(name: string, age?: number): void {
+function getInfo(name: string, age?: number): void {
     console.log(name, age);
 }
-print('test')
-print('test', 56)
+getInfo('test')
+getInfo('test', 56)
 
 // 默认参数
 function ajax(url: string, method: string = 'GET') {

@@ -6,11 +6,11 @@ let getName = function (firstName, lastName) {
     return firstName + lastName;
 };
 // 可选参数
-function print(name, age) {
+function getInfo(name, age) {
     console.log(name, age);
 }
-print('test');
-print('test', 56);
+getInfo('test');
+getInfo('test', 56);
 // 默认参数
 function ajax(url, method = 'GET') {
     console.log(url, method);
