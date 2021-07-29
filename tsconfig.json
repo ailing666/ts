@@ -3,6 +3,7 @@
     "target": "ESNext",
     "module": "commonjs",
     "strictNullChecks": true,
+    "experimentalDecorators": true,
     // ESNext最新版的js
     "lib": [
       "dom",
