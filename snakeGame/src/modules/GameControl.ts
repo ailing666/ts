@@ -15,13 +15,13 @@ class GameControl {
   scorePanel: ScorePanel;
   // 蛇的移动方向
   direction: string;
-  //监听当前的数值变化
   constructor() {
     this.food = new Food();
     this.snake = new Snake();
     this.direction = this.snake.direction
     this.gameOver = new GameOver();
-    this.scorePanel = new ScorePanel(10, 1);
+    // 最高等级，每几分升一级
+    this.scorePanel = new ScorePanel(10, 2);
     // 初始化
     this.init();
   }
