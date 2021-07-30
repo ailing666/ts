@@ -1,6 +1,7 @@
 import Food from './Food';
 import Snake from './Snake';
 import GameOver from './GameOver';
+import ScorePanel from './ScorePanel';
 import { DIRECTION } from './common'
 // 控制游戏类
 class GameControl {
@@ -10,6 +11,8 @@ class GameControl {
   snake: Snake
   // 游戏结束
   gameOver: GameOver
+  // 计分牌
+  scorePanel: ScorePanel;
   // 蛇的移动方向
   direction: string;
   //监听当前的数值变化
@@ -18,6 +21,7 @@ class GameControl {
     this.snake = new Snake();
     this.direction = this.snake.direction
     this.gameOver = new GameOver();
+    this.scorePanel = new ScorePanel(10, 1);
     // 初始化
     this.init();
   }
@@ -62,15 +66,17 @@ class GameControl {
     } catch (error) {
       this.gameOver.isGameOver()
     }
-    this.gameOver.isDie || setTimeout(this.run.bind(this), 100);
+    this.gameOver.isDie || setTimeout(this.run.bind(this), 300 - (this.scorePanel.level - 1) * 30);
   }
   eatFood(x: number, y: number) {
     if (x === this.food.x && y === this.food.y) {
       // 蛇头位置与食物位置重合代表吃到了
       // 身体增加一节
-      // 食物重新刷新
       this.snake.addBodies()
+      // 食物重新刷新
       this.food.change()
+      // 分数增加
+      this.scorePanel.addScore();
     }
   }
 }

@@ -53,14 +53,10 @@ class Snake {
   // 设置定位
   setPosition(type: string, val: number) {
     let getVal = type === 'y' ? this.y : this.x
-    if (getVal === val) {
-      return;
-    }
+    // 新值不能与旧值一样
+    if (getVal === val) return
     // 值的合法范围0-290之间
-    if (val < 0 || val > 290) {
-      // 进入判断说明蛇撞墙了
-      throw new Error('蛇撞墙了！');
-    }
+    if (val < 0 || val > 290) throw new Error('蛇撞墙了！')
     // 移动身体
     this.moveBodies()
     // 赋值
@@ -94,10 +90,8 @@ class Snake {
     // 获取所有的身体，检查其是否和蛇头的坐标发生重叠
     for (let i = 1; i < this.bodies.length; i++) {
       let bd = this.bodies[i] as HTMLElement;
-      if (this.x === bd.offsetLeft && this.y === bd.offsetTop) {
-        // 进入判断说明蛇头撞到了身体，游戏结束
-        throw new Error('撞到自己了！');
-      }
+      // 进入判断说明蛇头撞到了身体，游戏结束
+      if (this.x === bd.offsetLeft && this.y === bd.offsetTop) throw new Error('撞到自己了！')
     }
   }
 }
