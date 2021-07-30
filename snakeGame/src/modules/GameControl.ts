@@ -23,13 +23,17 @@ class GameControl {
   }
   init() {
     this.food.change()
-
     // 绑定键盘按键按下的事件
     document.addEventListener('keydown', this.keydownHandler.bind(this));
     this.run()
   }
   // 键盘按下函数
   keydownHandler(e: KeyboardEvent) {
+    let arr = [e.key, this.direction]
+    // 长度不为1时，不允许调头
+    if (this.snake.bodies.length !== 1 && arr.includes(DIRECTION.R) && arr.includes(DIRECTION.L) || arr.includes(DIRECTION.U) && arr.includes(DIRECTION.D)) {
+      return
+    }
     this.direction = e.key
   }
   run() {
