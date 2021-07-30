@@ -1,18 +1,22 @@
 import Food from './Food';
 import Snake from './Snake';
+import GameOver from './GameOver';
+
 // 控制游戏类
 class GameControl {
   // 食物类
   food: Food
   // 蛇类
   snake: Snake
+  // 游戏结束
+  gameOver: GameOver
   // 蛇的移动方向
   direction: string = '';
-  // 记录游戏是否结束
-  isLive = true;
+  //监听当前的数值变化
   constructor() {
     this.food = new Food();
     this.snake = new Snake();
+    this.gameOver = new GameOver();
     // 初始化
     this.init();
   }
@@ -21,11 +25,15 @@ class GameControl {
     document.addEventListener('keydown', this.keydownHandler.bind(this));
     // 食物位置随机出现
     this.food.change();
+    this.run()
   }
   // 键盘按下函数
   keydownHandler(e: KeyboardEvent) {
+    this.direction = e.key
+  }
+  run() {
     try {
-      switch (e.key) {
+      switch (this.direction) {
         case 'ArrowRight':
           // 蛇右移一格
           this.snake.x += 10
@@ -42,8 +50,9 @@ class GameControl {
           break;
       }
     } catch (error) {
-      alert(error.message + ' GAME OVER!');
+      this.gameOver.isGameOver()
     }
+    this.gameOver.isDie || setTimeout(this.run.bind(this), 300);
   }
 }
 export default GameControl
