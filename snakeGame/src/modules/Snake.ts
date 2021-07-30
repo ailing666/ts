@@ -45,29 +45,30 @@ class Snake {
     return this.head.offsetTop
   }
   set x(val) {
-    if (this.x === val) {
-      return;
-    }
-    // x的值的合法范围0-290之间
-    if (val < 0 || val > 290) {
-      // 进入判断说明蛇撞墙了
-      throw new Error('蛇撞墙了！');
-    }
-    this.moveBodies()
-    this.head.style.left = val + 'px';
-    this.checkHeadBody()
+    this.setPosition('x', val)
   }
   set y(val) {
-    if (this.y === val) {
+    this.setPosition('y', val)
+  }
+  // 设置定位
+  setPosition(type: string, val: number) {
+    let getVal = type === 'y' ? this.y : this.x
+    if (getVal === val) {
       return;
     }
-    // y的值的合法范围0-290之间
+    // 值的合法范围0-290之间
     if (val < 0 || val > 290) {
       // 进入判断说明蛇撞墙了
       throw new Error('蛇撞墙了！');
     }
+    // 移动身体
     this.moveBodies()
-    this.head.style.top = val + 'px';
+    // 赋值
+    if (type === 'y') {
+      this.head.style.top = val + 'px';
+    } else {
+      this.head.style.left = val + 'px';
+    }
     this.checkHeadBody()
   }
   // 增加身体
