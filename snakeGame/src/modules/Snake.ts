@@ -45,20 +45,47 @@ class Snake {
     return this.head.offsetTop
   }
   set x(val) {
+    if (this.x === val) {
+      return;
+    }
     // x的值的合法范围0-290之间
     if (val < 0 || val > 290) {
       // 进入判断说明蛇撞墙了
       throw new Error('蛇撞墙了！');
     }
+    this.moveBodies()
     this.head.style.left = val + 'px';
+
   }
   set y(val) {
+    if (this.y === val) {
+      return;
+    }
     // y的值的合法范围0-290之间
     if (val < 0 || val > 290) {
       // 进入判断说明蛇撞墙了
       throw new Error('蛇撞墙了！');
     }
+    this.moveBodies()
     this.head.style.top = val + 'px';
+  }
+  // 增加身体
+  addBodies() {
+    let bodyDom = document.createElement('div')
+    this.element.append(bodyDom)
+  }
+  // 移动身体
+  moveBodies() {
+    // 原理是从后往前，身体的位置是前一个身体的位置
+    for (let i = this.bodies.length - 1; i > 0; i--) {
+      // 获取前边身体的位置
+      let X = (this.bodies[i - 1] as HTMLElement).offsetLeft;
+      let Y = (this.bodies[i - 1] as HTMLElement).offsetTop;
+
+      // 将值设置到当前身体上
+      (this.bodies[i] as HTMLElement).style.left = X + 'px';
+      (this.bodies[i] as HTMLElement).style.top = Y + 'px';
+    }
   }
 }
 export default Snake;

@@ -22,10 +22,10 @@ class GameControl {
     this.init();
   }
   init() {
+    this.food.change()
+
     // 绑定键盘按键按下的事件
     document.addEventListener('keydown', this.keydownHandler.bind(this));
-    // 食物位置随机出现
-    this.food.change();
     this.run()
   }
   // 键盘按下函数
@@ -33,27 +33,41 @@ class GameControl {
     this.direction = e.key
   }
   run() {
-    try {
-      switch (this.direction) {
-        case DIRECTION.R:
-          // 蛇右移一格
-          this.snake.x += 10
-          break;
-        case DIRECTION.L:
-          this.snake.x -= 10
+    let x = this.snake.x
+    let y = this.snake.y
+    switch (this.direction) {
+      case DIRECTION.R:
+        // 蛇右移一格
+        x += 10
+        break;
+      case DIRECTION.L:
+        x -= 10
+        break;
+      case DIRECTION.U:
+        y -= 10
+        break;
+      case DIRECTION.D:
+        y += 10
+        break;
+    }
 
-          break;
-        case DIRECTION.U:
-          this.snake.y -= 10
-          break;
-        case DIRECTION.D:
-          this.snake.y += 10
-          break;
-      }
+    this.eatFood(x, y)
+    try {
+      this.snake.x = x
+      this.snake.y = y
     } catch (error) {
       this.gameOver.isGameOver()
     }
-    this.gameOver.isDie || setTimeout(this.run.bind(this), 300);
+    this.gameOver.isDie || setTimeout(this.run.bind(this), 100);
+  }
+  eatFood(x: number, y: number) {
+    if (x === this.food.x && y === this.food.y) {
+      // 蛇头位置与食物位置重合代表吃到了
+      // 身体增加一节
+      // 食物重新刷新
+      this.snake.addBodies()
+      this.food.change()
+    }
   }
 }
 export default GameControl
