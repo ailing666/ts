@@ -7,12 +7,12 @@ class Food {
     this.element = document.getElementById('food')!;
   }
   // 定义一个获取食物X轴坐标的方法
-  get X() {
+  get x() {
     return this.element.offsetLeft;
   }
 
   // 定义一个获取食物Y轴坐标的方法
-  get Y() {
+  get y() {
     return this.element.offsetTop;
   }
 
