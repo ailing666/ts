@@ -1,7 +1,7 @@
 import Food from './Food';
 import Snake from './Snake';
 import GameOver from './GameOver';
-
+import { DIRECTION } from './common'
 // 控制游戏类
 class GameControl {
   // 食物类
@@ -11,11 +11,12 @@ class GameControl {
   // 游戏结束
   gameOver: GameOver
   // 蛇的移动方向
-  direction: string = '';
+  direction: string;
   //监听当前的数值变化
   constructor() {
     this.food = new Food();
     this.snake = new Snake();
+    this.direction = this.snake.direction
     this.gameOver = new GameOver();
     // 初始化
     this.init();
@@ -34,18 +35,18 @@ class GameControl {
   run() {
     try {
       switch (this.direction) {
-        case 'ArrowRight':
+        case DIRECTION.R:
           // 蛇右移一格
           this.snake.x += 10
           break;
-        case 'ArrowLeft':
+        case DIRECTION.L:
           this.snake.x -= 10
 
           break;
-        case 'ArrowUp':
+        case DIRECTION.U:
           this.snake.y -= 10
           break;
-        case 'ArrowDown':
+        case DIRECTION.D:
           this.snake.y += 10
           break;
       }

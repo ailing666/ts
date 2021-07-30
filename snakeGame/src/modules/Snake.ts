@@ -1,3 +1,4 @@
+import { DIRECTION } from './common'
 // 蛇的类
 class Snake {
   // 蛇头
@@ -6,10 +7,34 @@ class Snake {
   bodies: HTMLCollection
   // 整个蛇
   element: HTMLElement;
+  direction: string = ''
   constructor() {
     this.element = document.getElementById('snake')!;
     this.head = document.querySelector('#snake > div') as HTMLElement;
     this.bodies = this.element.getElementsByTagName('div');
+    // 初始化
+    this.init()
+  }
+  init() {
+    // 蛇随机位子
+    this.snakePosition()
+    // 蛇随机方向
+    this.snakeDirection()
+  }
+
+  snakePosition() {
+    // 不能初始就贴边
+    let top = (Math.floor(Math.random() * (19 - 10 + 1)) + 10) * 10;
+    let left = (Math.floor(Math.random() * (19 - 10 + 1)) + 10) * 10;
+    // 赋值给dom
+    this.head.style.left = left + 'px';
+    this.head.style.top = top + 'px';
+  }
+
+  snakeDirection() {
+    // 随机四个方向
+    let arr = [DIRECTION.R, DIRECTION.L, DIRECTION.U, DIRECTION.D]
+    this.direction = arr[Math.floor(Math.random() * 4)]
   }
   // 获取蛇的横坐标
   get x() {
